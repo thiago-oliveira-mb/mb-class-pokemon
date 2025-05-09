@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MB Class - Projeto Pokémon
 
-## Getting Started
+Este projeto é um exemplo de aplicação Next.js que utiliza uma API fake usando o `json-server` para salvar alguns dados e a [API do PokéAPI](http://pokeapi.co/) para obter dados de Pokémons.
 
-First, run the development server:
+## Pré-requisitos
+
+- [Node.js](https://nodejs.org/) instalado
+- [Yarn](https://yarnpkg.com/) instalado (ou use npm se preferir)
+- [json-server](https://github.com/typicode/json-server) instalado globalmente ou via script
+
+## Instalação
+
+Instale as dependências do projeto:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install
+# ou
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Rodando o servidor fake (json-server)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+O projeto utiliza um arquivo `db.json` na raiz para simular uma API REST.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Para iniciar o json-server:
 
-## Learn More
+```bash
+npx json-server --watch db.json --port 3001
+```
 
-To learn more about Next.js, take a look at the following resources:
+A API estará disponível em: [http://localhost:3001](http://localhost:3001)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Rodando o front-end
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Em outro terminal, inicie o servidor de desenvolvimento do Next.js:
 
-## Deploy on Vercel
+```bash
+yarn dev
+# ou
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+O front-end estará disponível em: [http://localhost:3000](http://localhost:3000)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Acessando o projeto
+
+1. Certifique-se de que o `json-server` está rodando em `localhost:3001`.
+2. Acesse [http://localhost:3000](http://localhost:3000) no seu navegador para ver a aplicação.
+
+---
+
+Se tiver dúvidas, abra uma issue ou entre em contato!
