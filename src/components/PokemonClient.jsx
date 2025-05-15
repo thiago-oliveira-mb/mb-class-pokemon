@@ -4,7 +4,8 @@ import Image from "next/image";
 import styles from "./style.module.scss";
 import {
   getPokemonByName,
-  setPokemonPrincipal,
+  // setPokemonPrincipal,
+  setPokemonPrincipalApi,
 } from "../actions/pokemonActions";
 
 const PokemonClient = () => {
@@ -23,7 +24,8 @@ const PokemonClient = () => {
 
   async function setAsPrincipal() {
     setSaving(true);
-    await setPokemonPrincipal(pokemon.name);
+    // await setPokemonPrincipal(pokemon.name);
+    await setPokemonPrincipalApi(pokemon.name);
     setSaving(false);
   }
 

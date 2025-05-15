@@ -33,3 +33,33 @@ export async function getPokemonByName(nameOrId) {
     artworkUrl: `https://img.pokemondb.net/artwork/${pokemon.name.toLowerCase()}.jpg`,
   };
 }
+
+function getBaseUrl() {
+  return typeof window === "undefined"
+    ? process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+    : "";
+}
+
+export async function getPokemonPrincipalApi() {
+  const baseUrl = getBaseUrl();
+  const res = await fetch(`${baseUrl}/api/principal`, {
+    next: { tags: ["pokemon-principal"] },
+  });
+  if (!res.ok) throw new Error("Pokémon principal não encontrado");
+  const data = await res.json();
+  return {
+    name: data.name,
+    artworkUrl: `https://img.pokemondb.net/artwork/${data?.name?.toLowerCase()}.jpg`,
+  };
+}
+
+export async function setPokemonPrincipalApi(name) {
+  const baseUrl = getBaseUrl();
+  await fetch(`${baseUrl}/api/principal`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name }),
+  });
+
+  revalidateTag("pokemon-principal");
+}

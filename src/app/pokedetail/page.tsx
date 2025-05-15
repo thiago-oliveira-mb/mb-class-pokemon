@@ -1,9 +1,13 @@
-import { getPokemonPrincipal } from "@/actions/pokemonActions";
+import {
+  // getPokemonPrincipal,
+  getPokemonPrincipalApi,
+} from "@/actions/pokemonActions";
 import Image from "next/image";
 import styles from "../../components/style.module.scss";
 
 const PokeDetail = async () => {
-  const pokemon = await getPokemonPrincipal();
+  // const pokemon = await getPokemonPrincipal();
+  const pokemon = await getPokemonPrincipalApi();
   return (
     <div className={styles.card}>
       <div className={styles.name}>{pokemon.name}</div>
