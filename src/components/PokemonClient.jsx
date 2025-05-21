@@ -6,8 +6,9 @@ import {
   getPokemonByName,
   setPokemonPrincipal,
 } from "../actions/pokemonActions";
-
+import usePokemonStore from "@/store/pokemonStore";
 const PokemonClient = () => {
+  const { setPrincipalPokemon } = usePokemonStore();
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(false);
   const [imgError, setImgError] = useState(false);
@@ -24,14 +25,9 @@ const PokemonClient = () => {
   async function setAsPrincipal() {
     setSaving(true);
     await setPokemonPrincipal(pokemon.name);
+    setPrincipalPokemon(pokemon);
     setSaving(false);
   }
-
-  useEffect(() => {
-    fetchPokemon();
-  }, []);
-
-  console.log("pokemon no client", pokemon);
 
   useEffect(() => {
     setImgError(false);

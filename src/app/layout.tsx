@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import styles from "./page.module.css";
+import StoreInitializer from "../components/StoreInitializer";
 
 export const metadata: Metadata = {
   title: "Mb class",
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning>
+        <StoreInitializer />
         <header className={styles.header}>
           <h1 className={styles.headerTitle}>MB Class</h1>
         </header>

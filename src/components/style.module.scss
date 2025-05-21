@@ -132,3 +132,36 @@
 .buttonPrincipal:hover:not(:disabled) {
   background: #571bd8;
 }
+
+.pageBackButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid #c49f3b;
+  background: #2f323f;
+  color: #c49f3b;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  letter-spacing: 1px;
+  width: auto;
+  display: inline-block;
+
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  z-index: 1000;
+
+  &:hover:not(:disabled) {
+    background: #c49f3b;
+    color: #2f323f;
+    border-color: #c49f3b;
+  }
+
+  &:disabled {
+    background: #4a4e5a;
+    color: #8a8a96;
+    border-color: #64647c;
+    cursor: not-allowed;
+  }
+}

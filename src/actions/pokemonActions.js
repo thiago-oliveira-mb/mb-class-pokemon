@@ -27,7 +27,6 @@ export async function getPokemonByName(nameOrId) {
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameOrId}`);
   if (!res.ok) throw new Error("Pokémon não encontrado");
   const pokemon = await res.json();
-  console.log("pokemon", pokemon.name);
   return {
     name: pokemon.name,
     artworkUrl: `https://img.pokemondb.net/artwork/${pokemon.name.toLowerCase()}.jpg`,

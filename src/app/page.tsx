@@ -8,12 +8,12 @@ export default function Home() {
       <h1 className={styles.title}>Pokédex</h1>
       <div className={styles.cardsContainer}>
         <div>
-          <div className={styles.sectionTitle}>Server Component</div>
+          <div className={styles.sectionTitle}>Principal</div>
 
           <PokemonServer />
         </div>
         <div>
-          <div className={styles.sectionTitle}>Client Component</div>
+          <div className={styles.sectionTitle}>Pokerandom</div>
           <PokemonClient />
         </div>
       </div>
