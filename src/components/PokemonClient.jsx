@@ -2,51 +2,55 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./style.module.scss";
-import {
-  getPokemonByName,
-  setPokemonPrincipal,
-} from "../actions/pokemonActions";
+import { setPokemonPrincipal as setPokemonPrincipalAction } from "../actions/pokemonActions";
 import usePokemonStore from "@/store/pokemonStore";
-const PokemonClient = () => {
-  const { setPrincipalPokemon } = usePokemonStore();
-  const [pokemon, setPokemon] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [imgError, setImgError] = useState(false);
-  const [saving, setSaving] = useState(false);
 
-  async function fetchPokemon() {
-    setLoading(true);
-    const id = Math.floor(Math.random() * 250) + 1;
-    const serverData = await getPokemonByName(id);
-    setPokemon(serverData);
-    setLoading(false);
-  }
+const PokemonClient = () => {
+  const {
+    currentViewPokemon,
+    isLoadingInitialPokemon,
+    isSwappingPokemonInStore,
+    setPrincipalPokemon,
+    fetchInitialPokemonIfNeeded,
+    fetchNewRandomPokemon,
+  } = usePokemonStore();
+
+  const [imgError, setImgError] = useState(false);
+
+  useEffect(() => {
+    fetchInitialPokemonIfNeeded();
+  }, [fetchInitialPokemonIfNeeded]);
+
+  const handleSwapPokemon = async () => {
+    await fetchNewRandomPokemon();
+  };
 
   async function setAsPrincipal() {
-    setSaving(true);
-    await setPokemonPrincipal(pokemon.name);
-    setPrincipalPokemon(pokemon);
-    setSaving(false);
+    if (!currentViewPokemon) return;
+    await setPokemonPrincipalAction(currentViewPokemon.name);
+    setPrincipalPokemon(currentViewPokemon);
   }
 
   useEffect(() => {
     setImgError(false);
-  }, [pokemon?.artworkUrl]);
+  }, [currentViewPokemon?.artworkUrl]);
+
+  const displayLoading = isLoadingInitialPokemon || isSwappingPokemonInStore;
 
   return (
     <div className={styles.card}>
-      {loading || !pokemon ? (
+      {displayLoading || !currentViewPokemon ? (
         <div className={styles.loading}>
           <div className={styles.spinner} />
           <div className={styles.loadingText}>Carregando...</div>
         </div>
       ) : (
         <>
-          <div className={styles.name}>{pokemon.name}</div>
-          {pokemon.artworkUrl && !imgError ? (
+          <div className={styles.name}>{currentViewPokemon.name}</div>
+          {currentViewPokemon.artworkUrl && !imgError ? (
             <Image
-              src={pokemon.artworkUrl}
-              alt={pokemon.name}
+              src={currentViewPokemon.artworkUrl}
+              alt={currentViewPokemon.name}
               width={160}
               height={160}
               className={styles.img}
@@ -58,19 +62,14 @@ const PokemonClient = () => {
           )}
         </>
       )}
-      <button
-        onClick={fetchPokemon}
-        disabled={loading}
-        className={styles.button}
-      >
-        {loading ? "Carregando..." : "Trocar Pokémon"}
+      <button onClick={handleSwapPokemon} className={styles.button}>
+        Trocar Pokémon
       </button>
       <button
         onClick={setAsPrincipal}
         className={`${styles.button} ${styles.buttonPrincipal}`}
-        disabled={saving || !pokemon}
       >
-        {saving ? "Salvando..." : "Novo principal"}
+        Novo principal
       </button>
     </div>
   );

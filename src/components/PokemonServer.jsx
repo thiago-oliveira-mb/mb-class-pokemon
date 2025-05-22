@@ -3,9 +3,18 @@ import Image from "next/image";
 import styles from "./style.module.scss";
 import usePokemonStore from "../store/pokemonStore";
 import Link from "next/link";
+import { useLDClient } from "launchdarkly-react-client-sdk";
 
 const PokemonServer = () => {
   const { principalPokemon } = usePokemonStore();
+
+  const ldClient = useLDClient();
+
+  const handleMetric = () => {
+    ldClient.track("cardClicked", {
+      pokemon: principalPokemon,
+    });
+  };
 
   if (!principalPokemon) {
     return (
@@ -19,7 +28,7 @@ const PokemonServer = () => {
   }
 
   return (
-    <Link href="/pokedetail" className={styles.cardLink}>
+    <Link onClick={handleMetric} href="/pokedetail" className={styles.cardLink}>
       <div className={styles.card}>
         <div className={styles.name}>{principalPokemon.name}</div>
         {principalPokemon.artworkUrl ? (

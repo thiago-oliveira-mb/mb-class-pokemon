@@ -69,6 +69,18 @@
   letter-spacing: 1px;
 }
 
+.showMore {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #a6879e;
+
+  strong {
+    color: #ff0000;
+    text-transform: capitalize;
+  }
+}
+
 .name {
   font-size: 22px;
   font-weight: 800;
